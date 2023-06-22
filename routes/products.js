@@ -5,7 +5,7 @@ const router = express.Router();
 const productsController = require('../controllers/products_controller');
 
 // to get all the products
-router.get('/', productsController.products);
+router.get('/products', productsController.products);
 
 // to create a product
 router.post('/create', productsController.create);
