@@ -4,8 +4,12 @@ const router = express.Router();
 // initializing products controller
 const productsController = require('../controllers/products_controller');
 
+router.get('/', (req, res) => {
+    res.send('Hello User!');
+});
+
 // to get all the products
-router.get('/', productsController.products);
+router.get('/products', productsController.products);
 
 // to create a product
 router.post('/create', productsController.create);

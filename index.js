@@ -21,6 +21,7 @@ app.use(function(req, res, next) {
 });
 
 // Using Routes
+app.use('/', require('./routes/products'));
 app.use('/products', require('./routes/products'));
 
 // Starting the server

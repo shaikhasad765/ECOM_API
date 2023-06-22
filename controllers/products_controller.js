@@ -61,26 +61,27 @@ module.exports.create = function(req, res){
 
 
 // Function to delete a product using its ID
-module.exports.delete = function(req, res){
+module.exports.delete = function(req, res) {
     const ID = req.params.productID;
 
-    Product.deleteOne({ _id: ID }, function(err, found){
-        //Check if Error
-        if(err){
-            res.send({message: "Product not found. Enter a valid Product ID to Delete." });
-        }else{
-            //Check if the Entered Product ID is Valid 
-            if(found.deletedCount === 0) {
-                return res.send({message: "Product not found. Enter a valid Product ID to Delete." });
-            }else{
-                //If Valid
-                res.send({
-                    data:{message: `The Product named ${req.body.name} has been deleted successfully`}
-                });
+    Product.findOneAndDelete({ _id: ID }, function(err, found) {
+        if (err) {
+            res.send({ message: "Product not found. Enter a valid Product ID to Delete." });
+        } else {
+            if (!found) {
+                return res.send({ message: "Product not found. Enter a valid Product ID to Delete." });
+            } else {
+                const DProduct = {
+                    name: found.name
+            };
+            res.send({
+                data: { message: `The Product named ${DProduct.name} has been deleted successfully` }
+            });
             }
         }
-    });
-};
+        });
+    };
+
 
 
 // Function to update a product's quantity
